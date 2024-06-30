@@ -67,6 +67,7 @@ function cargarEpisodios() {
         });
 }
 
+//Funcion para cargar los 5 top episodios por temporada
 function cargarTopEpisodios() {
     getDatos(`/series/${serieId}/temporadas/top`)
     .then(data => {
