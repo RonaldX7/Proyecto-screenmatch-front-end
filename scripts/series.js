@@ -67,6 +67,32 @@ function cargarEpisodios() {
         });
 }
 
+function cargarTopEpisodios() {
+    getDatos(`/series/${serieId}/temporadas/top`)
+    .then(data => {
+        fichaSerie.innerHTML = ''; 
+            const ul = document.createElement('ul');
+            ul.className = 'episodios-lista';
+
+            const listaHTML = data.map(serie => `
+                <li>
+                    Episódio ${serie.numeroEpisodio} - Temporada ${serie.temporada} - ${serie.titulo}
+                </li>
+            `).join('');
+            ul.innerHTML = listaHTML;
+            
+            const paragrafo = document.createElement('p');
+            const linha = document.createElement('br');
+            fichaSerie.appendChild(paragrafo);
+            fichaSerie.appendChild(linha);
+            fichaSerie.appendChild(ul);
+
+        })
+    .catch(error => {
+        console.error('Erro ao obter episódios:', error);
+    });
+}
+
 // Funcion para cargar informaciones de la serie
 function cargarInfoSerie() {
     getDatos(`/series/${serieId}`)
