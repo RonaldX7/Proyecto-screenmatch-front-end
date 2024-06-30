@@ -28,7 +28,12 @@ function cargarTemporadas() {
             const optionTodos = document.createElement('option');
             optionTodos.value = 'todas';
             optionTodos.textContent = 'Todas las temporadas'
-            listaTemporadas.appendChild(optionTodos); 
+            listaTemporadas.appendChild(optionTodos);
+
+            const optionTop = document.createElement('option');
+            optionTop.value = 'top';
+            optionTop.textContent = 'Top 5 episodios'
+            listaTemporadas.appendChild(optionTop);
         })
         .catch(error => {
             console.error('Error al obtener temporadas:', error);
@@ -90,7 +95,7 @@ function cargarTopEpisodios() {
 
         })
     .catch(error => {
-        console.error('Erro ao obter episódios:', error);
+        console.error('Error al obtener los episodios:', error);
     });
 }
 
@@ -116,7 +121,13 @@ function cargarInfoSerie() {
 }
 
 // Adiciona escuchador de evento para el elemento select
-listaTemporadas.addEventListener('change', cargarEpisodios);
+listaTemporadas.addEventListener('change', function() {
+    if (listaTemporadas.value === 'top') {
+        cargarTopEpisodios()
+    } else {
+        cargarEpisodios()
+    }
+});
 
 // Carga las informaciones de la série y las temporadas cuando la página carga
 cargarInfoSerie();
